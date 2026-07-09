@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>ZYCC Recruit | Creative Archive Canon Board v1.10</title>
+<style>
+:root{--paper:#e7dfcf;--ink:#1d1a16;--muted:#70695f;--line:rgba(29,26,22,.18);--dark:#11100e;--cream:#f4efe5;--accent:#6d4b2f;--gap:clamp(14px,1.7vw,24px);--serif:Georgia,'Times New Roman',serif;--sans:Arial,'Helvetica Neue',sans-serif;}
+*{box-sizing:border-box}html{scroll-snap-type:y mandatory;scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);letter-spacing:-.01em;overflow-y:auto}a{color:inherit;text-decoration:none}img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(.92) contrast(1.04)}
+.nav{position:fixed;z-index:20;left:0;right:0;top:0;display:flex;justify-content:space-between;align-items:center;padding:18px 28px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;mix-blend-mode:difference;color:#f5f1e8;pointer-events:none}.nav span{opacity:.82}
+.section{height:100svh;scroll-snap-align:start;scroll-snap-stop:always;padding:clamp(52px,6vw,84px) clamp(22px,5vw,72px);border-bottom:1px solid var(--line);position:relative;overflow:hidden}.meta{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}.headline{font-family:var(--serif);font-size:clamp(46px,8vw,124px);font-weight:400;line-height:.92;letter-spacing:-.065em;margin:0}.jp{font-family:'Yu Mincho','Hiragino Mincho ProN',serif;letter-spacing:-.05em}.caption{font-size:12px;line-height:1.6;color:var(--muted)}.kicker{font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:14px}
+/* Headline reveal: slower, quieter, with afterglow. */
+.reveal-heading{opacity:0;transform:translateY(18px);filter:blur(16px);transition:opacity 2.85s cubic-bezier(.16,1,.3,1),transform 3.1s cubic-bezier(.16,1,.3,1),filter 3.1s cubic-bezier(.16,1,.3,1);will-change:opacity,transform,filter}.reveal-heading.is-visible{opacity:1;transform:translateY(0);filter:blur(0)}.hero .reveal-heading{transition-delay:1.35s}.section:not(.hero) .reveal-heading{transition-delay:.62s}
+@media(prefers-reduced-motion:reduce){.reveal-heading{transition:opacity .01s linear,transform .01s linear,filter .01s linear;transition-delay:0s!important}}
+.nav{transition:color .45s ease}.brand{display:flex;align-items:center;gap:12px}.brandLogo{width:160px;height:auto;display:block;filter:none!important;object-fit:contain}.brandText{font-size:11px;letter-spacing:.12em;text-transform:uppercase;opacity:.72}.nav.logo-black{color:#1d1a16;mix-blend-mode:normal}.nav.logo-white{color:#f5f1e8;mix-blend-mode:normal}.nav.logo-gray{color:#d8d5cf;mix-blend-mode:normal}
+.hero{padding:0;background:#111}.hero .photo{position:absolute;inset:0}.hero:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.55),rgba(0,0,0,.05) 55%,rgba(0,0,0,.25))}.heroText{position:absolute;z-index:2;left:clamp(24px,6vw,96px);bottom:clamp(42px,8vw,92px);color:#f7f1e8}.heroText .headline{font-size:clamp(56px,10vw,148px)}.heroText .caption{color:rgba(247,241,232,.74);max-width:420px;margin-top:24px}.heroMark{position:absolute;z-index:2;right:30px;bottom:28px;color:#f7f1e8;font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+.studio{display:grid;grid-template-columns:1fr 1.25fr;gap:var(--gap);align-items:center}.studio .copy{align-self:end;padding-bottom:4vh}.studio .images{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap);height:68vh}.studio .images figure{margin:0;height:100%;overflow:hidden}.studio .images figure:first-child{align-self:start;height:58vh}.studio .images figure:last-child{align-self:end;height:58vh}
+.archive{display:flex;flex-direction:column}.archiveHeader{display:flex;justify-content:space-between;align-items:end;border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:14px;flex:0 0 auto}.archiveHeader .headline{font-size:clamp(52px,8vw,112px)}.toggle button,.filters button{border:0;background:transparent;font:inherit;font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:8px 10px;color:var(--muted);cursor:pointer}.toggle button.active,.filters button.active{color:var(--ink);border-bottom:1px solid var(--ink)}.filters{display:flex;gap:2px;margin:0 0 12px;flex-wrap:wrap;flex:0 0 auto}.archiveViewport{flex:1;min-height:0;overflow:auto;scrollbar-width:thin}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;padding-bottom:20px}.card{position:relative;height:34vh;min-height:230px;background:#ddd;overflow:hidden}.card img,.row .thumb img{transition:opacity .7s ease}.official-loading img{opacity:.28}.official-loaded img{opacity:1}.card:nth-child(2n){margin-top:24px}.card .label{position:absolute;left:12px;right:12px;bottom:12px;display:flex;justify-content:space-between;align-items:flex-end;gap:12px;color:#fff;font-size:11px;letter-spacing:.08em;text-transform:uppercase;text-shadow:0 1px 12px rgba(0,0,0,.7)}.card .label b{display:block;font-family:'Yu Mincho','Hiragino Mincho ProN',serif;font-size:15px;line-height:1.25;letter-spacing:-.03em;text-transform:none;font-weight:400}.card .label small{display:block;margin-top:6px;color:rgba(255,255,255,.72);font-size:10px}.archiveSource{position:absolute;left:clamp(22px,5vw,72px);bottom:18px;margin:0;font-size:10px}.list{display:none;border-top:1px solid var(--line);padding-bottom:20px}.row{display:grid;grid-template-columns:1.1fr 2fr 1fr 1fr 92px;gap:18px;align-items:center;border-bottom:1px solid var(--line);padding:15px 0;font-size:14px}.row .thumb{height:52px;background:#ddd}.row .muted{color:var(--muted)}.archive.listmode .grid{display:none}.archive.listmode .list{display:block}.archive.listmode .toggle .listBtn{color:var(--ink);border-bottom:1px solid var(--ink)}.archive.listmode .toggle .gridBtn{color:var(--muted);border-bottom:0}
+.process{background:var(--dark);color:var(--cream);display:flex;flex-direction:column}.process .meta,.process .caption{color:rgba(244,239,229,.68)}.process>.headline{font-size:clamp(48px,7vw,112px)}.processGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin-top:28px;background:rgba(255,255,255,.18);flex:1;min-height:0}.processFile{background:var(--dark);padding:16px;display:flex;flex-direction:column;justify-content:space-between;min-height:0}.processFile .photo{height:42vh;overflow:hidden;margin:-16px -16px 18px}.processFile h3{font-family:var(--serif);font-weight:400;font-size:clamp(34px,5vw,72px);margin:0;letter-spacing:-.05em;line-height:.9}.processFile p{max-width:300px;color:rgba(244,239,229,.7);line-height:1.6;font-size:13px}
+.members{display:grid;grid-template-columns:.9fr 1.1fr;gap:var(--gap);align-items:center}.memberScroll{height:76vh;overflow:auto;padding-right:12px;scrollbar-width:thin}.memberCard{border-top:1px solid var(--line);padding-top:14px}.memberPhoto{height:48vh;margin-bottom:14px}.memberMeta{display:grid;grid-template-columns:1fr 1fr;gap:18px;font-size:12px;line-height:1.5;color:var(--muted)}
+.join{background:#171512;color:var(--cream);display:grid;grid-template-columns:1fr 1fr;gap:var(--gap);align-items:center}.join .meta,.join .caption{color:rgba(244,239,229,.68)}.join .headline.jp{line-height:1.22;letter-spacing:.01em;font-size:clamp(42px,6.8vw,104px)}.join .headline.jp br{display:block;content:"";margin-top:.18em}.join .photo{height:72vh;overflow:hidden}.btn{display:inline-block;margin-top:28px;border:1px solid rgba(244,239,229,.45);padding:13px 18px;font-size:12px;letter-spacing:.08em;text-transform:uppercase}.note{position:absolute;right:24px;top:70px;writing-mode:vertical-rl;font-size:11px;letter-spacing:.1em;color:var(--muted)}
+@media(max-width:820px){html{scroll-snap-type:y proximity}.section{height:auto;min-height:100svh;overflow:visible}.studio,.join,.members{grid-template-columns:1fr}.studio .images{height:auto}.studio .images figure:first-child,.studio .images figure:last-child{height:44vh}.grid{grid-template-columns:1fr 1fr}.processGrid{grid-template-columns:1fr}.processFile .photo{height:36vh}.row{grid-template-columns:1fr 1.5fr 70px}.row span:nth-child(3),.row span:nth-child(4){display:none}.join .photo{height:46vh}.memberScroll{height:auto;overflow:visible}.memberPhoto{height:42vh}}
+
+/* v1.7 archive interaction fix */
+.card,.row{border:0;text-align:left;color:inherit;font-family:inherit;cursor:pointer}.card{padding:0}.card[hidden],.row[hidden]{display:none!important}.filters button{border-radius:0}.filters button:focus-visible,.toggle button:focus-visible,.workItem:focus-visible,.modalClose:focus-visible{outline:1px solid var(--ink);outline-offset:3px}.archiveViewport{padding-right:6px}.workModal{position:fixed;inset:0;z-index:80;background:rgba(17,16,14,.72);backdrop-filter:blur(12px);display:none;align-items:center;justify-content:center;padding:clamp(18px,4vw,54px)}.workModal.open{display:flex}.modalPanel{width:min(1180px,94vw);height:min(760px,86vh);background:var(--paper);display:grid;grid-template-columns:minmax(0,1.55fr) minmax(260px,.55fr);box-shadow:0 28px 80px rgba(0,0,0,.28)}.modalPanel figure{margin:0;min-width:0;background:#d7cfbf}.modalPanel img{width:100%;height:100%;object-fit:contain;filter:saturate(.96) contrast(1.02)}.modalText{padding:clamp(20px,3vw,42px);display:flex;flex-direction:column;justify-content:flex-end;gap:14px}.modalTitle{font-family:'Yu Mincho','Hiragino Mincho ProN',serif;font-weight:400;font-size:clamp(24px,3.2vw,48px);line-height:1.08;letter-spacing:-.06em;margin:0}.modalLink{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-top:10px}.modalClose{position:fixed;right:28px;top:22px;z-index:90;border:0;background:transparent;color:#f4efe5;font-size:36px;line-height:1;cursor:pointer}@media(max-width:760px){.grid{grid-template-columns:1fr}.card:nth-child(2n){margin-top:0}.modalPanel{grid-template-columns:1fr;height:88vh}.modalPanel figure{height:58vh}.row{grid-template-columns:1fr 2fr 54px}.row .muted{display:none}}
+
+/* v1.8 official archive full hydrate */
+.archive{padding-top:clamp(54px,5.2vw,72px)}.archiveHeaderV8{display:grid;grid-template-columns:1fr auto auto;gap:22px;align-items:end;margin-bottom:10px}.archiveHeaderV8 .headline{font-size:clamp(38px,5.2vw,76px);line-height:.92;white-space:nowrap}.archiveCount{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding-bottom:11px}.archiveViewport{height:calc(100svh - 245px);min-height:420px;overflow:auto;background:transparent}.grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;align-items:start}.card{height:clamp(150px,22vh,230px);min-height:150px;background:#d6cec0}.card:nth-child(2n){margin-top:0}.card.loading:before{content:'OFFICIAL IMAGE';position:absolute;inset:0;display:grid;place-items:center;font-size:10px;letter-spacing:.16em;color:rgba(29,26,22,.34)}.card img{background:#d6cec0}.card img[src=""]{opacity:0}.list{border-top:1px solid var(--line)}.row{width:100%;background:transparent;display:grid;grid-template-columns:minmax(120px,.9fr) minmax(260px,2.1fr) minmax(160px,1.1fr) 72px 108px;gap:18px;align-items:center;border-bottom:1px solid var(--line);padding:13px 0;font-size:13px;min-height:82px}.row strong{font-family:'Yu Mincho','Hiragino Mincho ProN',serif;font-weight:600;line-height:1.35}.row .thumb{width:108px;height:62px;background:#d6cec0;justify-self:end;overflow:hidden}.row .thumb img[src=""]{opacity:0}.workModal{background:rgba(17,16,14,.80)}.modalPanel{width:min(1320px,94vw);height:min(810px,88vh);grid-template-columns:minmax(0,1.65fr) minmax(330px,.62fr)}.modalPanel figure{display:grid;grid-template-rows:minmax(0,1fr) 74px;background:#d6cec0}.modalPanel figure>img{object-fit:contain;max-height:100%;background:#d6cec0}.modalGallery{display:flex;gap:8px;overflow:auto;padding:10px;background:rgba(29,26,22,.08)}.modalGallery button{border:0;background:#c8beae;padding:0;width:88px;height:54px;flex:0 0 auto;cursor:pointer}.modalGallery img{object-fit:cover}.modalText{justify-content:flex-start;overflow:auto}.modalFacts{display:grid;grid-template-columns:1fr;gap:8px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:14px 0;font-size:12px;line-height:1.45;color:var(--muted)}.modalFacts b{color:var(--ink);font-weight:500}.modalCaption{font-size:13px;line-height:1.75;color:#514a41;white-space:pre-line}.apiState{font-size:11px;letter-spacing:.08em;color:var(--muted);padding:12px 0}@media(max-width:980px){.grid{grid-template-columns:repeat(2,1fr)}.archiveHeaderV8{grid-template-columns:1fr auto}.archiveCount{display:none}.archiveHeaderV8 .headline{white-space:normal}.row{grid-template-columns:1fr 2fr 80px}.row .muted,.row .yearCell{display:none}.row .thumb{width:80px}.modalPanel{grid-template-columns:1fr}.modalPanel figure{height:54vh}.modalText{min-height:0}}
+
+/* V1.9 grid correction: equal thumbnail matrix + subtle image hover lift */
+.grid{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:14px!important;align-items:stretch!important}
+.card{height:clamp(158px,22vh,226px)!important;min-height:158px!important;margin:0!important;transform:none!important;overflow:hidden!important;background:#d6cec0!important}
+.card:nth-child(n){margin-top:0!important;transform:none!important}
+.card img{width:100%!important;height:100%!important;object-fit:cover!important;display:block!important;transform:scale(1)!important;transition:transform .75s cubic-bezier(.19,1,.22,1),filter .75s cubic-bezier(.19,1,.22,1),opacity .7s ease!important;will-change:transform!important}
+.card:hover img,.card:focus-visible img{transform:scale(1.035)!important;filter:saturate(1.03) contrast(1.02)!important}
+.card:hover,.card:focus-visible{filter:none!important;z-index:2}
+.card .label{pointer-events:none}
+.archiveViewport{overflow:auto!important}
+@media(max-width:980px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media(max-width:760px){.grid{grid-template-columns:1fr!important}}
+
+
+/* v1.10 resilient archive boot */
+.archive.is-hydrating .archiveSource:after{content:' / Syncing official archive';}
+.archive.is-refreshing .archiveViewport{opacity:.72;transition:opacity .28s ease}
+.archive.listmode .grid{display:none!important}.archive.listmode .list{display:block!important}
+.archive:not(.listmode) .grid{display:grid!important}.archive:not(.listmode) .list{display:none!important}
+.card.image-pending:before,.card.image-missing:before{position:absolute;inset:0;display:grid;place-items:center;font-size:10px;letter-spacing:.16em;color:rgba(29,26,22,.42);background:#d6cec0}
+.card.image-pending:before{content:'LOADING OFFICIAL IMAGE'}
+.card.image-missing:before{content:'IMAGE UNAVAILABLE'}
+.card.image-missing img,.row .thumb.image-missing img,.card.image-pending img,.row .thumb.image-pending img{display:none}
+.card img,.row .thumb img{opacity:1;transition:transform .45s cubic-bezier(.16,1,.3,1),opacity .25s ease}
+.grid{align-items:stretch}
+.card{will-change:transform;transition:transform .45s cubic-bezier(.16,1,.3,1),box-shadow .45s cubic-bezier(.16,1,.3,1)}
+.card:hover{transform:translateY(-4px) scale(1.018)!important;z-index:2;box-shadow:0 18px 34px rgba(29,26,22,.14)}
+.card:hover img{transform:scale(1.035)}
+.row{transition:background .18s ease}
+.row:hover{background:rgba(244,239,229,.42)}
+.process{padding-top:clamp(40px,4.4vw,62px);padding-bottom:clamp(26px,3.2vw,42px)}
+.process>.headline{font-size:clamp(40px,5.6vw,82px);line-height:.9}
+.process>.caption{margin-top:14px!important}
+.processGrid{margin-top:18px;gap:1px;min-height:0}
+.processFile{padding:14px;gap:10px;justify-content:flex-start;overflow:hidden}
+.processFile .photo{height:clamp(210px,31vh,330px);margin:-14px -14px 12px;flex:0 0 auto}
+.processFile h3{font-size:clamp(30px,3.8vw,54px);line-height:.95}
+.processFile p{font-size:12px;line-height:1.55;margin:0}
+.join .photo img{object-position:38% center}
+@media(max-width:820px){.nav>span:last-child{display:none}.heroText{right:24px}.heroText .caption{max-width:calc(100vw - 48px)}.heroMark{left:24px;right:auto;max-width:calc(100vw - 48px);white-space:normal}.processFile .photo{height:32vh}.processFile{min-height:auto}.processGrid{overflow:visible}}
+
+</style>
+</head>
+<body>
+<nav class="nav logo-white"><span class="brand"><img class="brandLogo" src="assets/ZYCC-Logo-white-160px.png" alt="ZYCC CORPORATION"><span class="brandText">Recruit</span></span><span>ZYCC Corporation</span></nav>
+<section class="section hero" id="manifesto" data-logo="white"><div class="photo"><img src="assets/hero.jpg"></div><div class="heroText"><div class="meta">Manifesto / 01</div><h1 class="headline jp reveal-heading">ここから、<br>始めたい。</h1><p class="caption">まだ名前のない思いを、誰かが過ごす場所へ。ジークの仕事は、静かな一歩から始まる。</p></div><div class="heroMark">Creating Value Since 1805</div></section>
+<section class="section studio" id="studio" data-logo="black"><div class="copy"><div class="kicker">Studio / 02</div><h2 class="headline reveal-heading">A studio<br>that makes<br>space visible.</h2><p class="caption" style="max-width:380px;margin-top:24px">東京、大阪、福岡。図面と素材、対話と現場が、日々の仕事の中で静かにつながっている。</p></div><div class="images"><figure><img src="assets/studio1.jpg"></figure><figure><img src="assets/studio2.jpg"></figure></div></section>
+<section class="section archive" id="archive" data-logo="black">
+  <div class="archiveHeader archiveHeaderV8">
+    <div>
+      <div class="kicker">Archive / 03</div>
+      <h2 class="headline reveal-heading">Selected Works.</h2>
+    </div>
+    <div class="archiveCount"><span id="workCount">72</span> official records</div>
+    <div class="toggle"><button class="gridBtn active" type="button" data-view="grid">Grid</button><button class="listBtn" type="button" data-view="list">List</button></div>
+  </div>
+  <div class="filters" id="workFilters">
+    <button class="active" data-filter="All">All</button><button data-filter="専門店">専門店</button><button data-filter="ホテル結婚式場">ホテル</button><button data-filter="飲食店">飲食店</button><button data-filter="遊興・テーマ型">遊興</button><button data-filter="大型商業施設">商業施設</button><button data-filter="展示会・ショールーム・博物館">展示会</button><button data-filter="海外実績">海外</button><button data-filter="その他">その他</button>
+  </div>
+  <div class="archiveViewport" id="archiveViewport"><div class="grid" id="workGrid"></div><div class="list" id="workList"></div></div>
+  <p class="caption archiveSource">ジークが手がけてきた場所の記録。</p>
+</section>
+<section class="section process" id="process" data-logo="white"><div class="kicker">Process Files / 04</div><h2 class="headline reveal-heading">Listen.<br>Imagine.<br>Build.</h2><p class="caption" style="max-width:430px;margin-top:20px">声を聞き、輪郭を描き、現場で確かめる。ひとつの場所ができるまで、いくつもの視点が重なる。</p><div class="processGrid"><article class="processFile"><div><div class="photo"><img src="assets/process1.jpg"></div><h3>Listen</h3></div><p>相手の言葉の奥にある、まだ形にならない思いを受け取る。</p></article><article class="processFile"><div><div class="photo"><img src="assets/process2.jpg"></div><h3>Imagine</h3></div><p>素材、光、動線を重ねながら、過ごす人の時間を描く。</p></article><article class="processFile"><div><div class="photo"><img src="assets/process3.jpg"></div><h3>Build</h3></div><p>図面の先にある手触りまで、現場で確かめて仕上げる。</p></article></div></section>
+<section class="section members" id="members" data-logo="black"><div><div class="kicker">Studio Members / 05</div><h2 class="headline reveal-heading">People<br>through<br>work.</h2><p class="caption" style="max-width:360px;margin-top:20px">どんな場所をつくり、何を大切にしているか。人となりは、仕事の中に少しずつにじむ。</p></div><div class="memberScroll"><article class="memberCard"><div class="memberPhoto"><img src="assets/member1.jpg"></div><div class="memberMeta"><span>Role<br><b>Designer</b></span><span>Recent<br><b>Hospitality</b></span><span>Material<br><b>Wood / Stone</b></span><span>Interest<br><b>Public Space</b></span></div></article><article class="memberCard" style="margin-top:36px"><div class="memberPhoto"><img src="assets/member2.jpg"></div><div class="memberMeta"><span>Role<br><b>Project Staff</b></span><span>Recent<br><b>Retail Space</b></span><span>Material<br><b>Light / Metal</b></span><span>Interest<br><b>Urban Culture</b></span></div></article></div></section>
+<section class="section join" id="join" data-logo="white"><div><div class="kicker">Join the Studio / 06</div><h2 class="headline jp reveal-heading">最初の<br>場所を、<br>選ぶ。</h2><p class="caption" style="max-width:420px;margin-top:24px">最初の一歩は、静かな場所からでいい。ジークの仕事を知り、自分の目で確かめてほしい。</p><a class="btn" href="https://job.mynavi.jp/27/pc/search/corp99259/outline.html" target="_blank" rel="noopener">Mynavi Entry</a></div><div class="photo"><img src="assets/join-main.png" alt=""></div></section>
+
+<div class="workModal" id="workModal" aria-hidden="true"><button class="modalClose" type="button" aria-label="close">×</button><div class="modalPanel"><figure><img src="" alt=""><div class="modalGallery" id="modalGallery"></div></figure><div class="modalText"><div class="meta modalMeta"></div><h3 class="modalTitle"></h3><div class="modalFacts"></div><p class="caption modalCaption"></p><span class="modalLink">ZYCC Works</span></div></div></div>
+<script src="assets/cache/works-cache.js"></script>
+<script>
+const logoMap={white:'assets/ZYCC-Logo-white-160px.png',black:'assets/ZYCC-Logo-Black-160px.webp',gray:'assets/ZYCC-Logo-gray-160px.png'};
+const nav=document.querySelector('.nav');
+const logo=document.querySelector('.brandLogo');
+const setLogo=(tone)=>{nav.classList.remove('logo-white','logo-black','logo-gray');nav.classList.add('logo-'+tone);logo.src=logoMap[tone]||logoMap.white};
+const sectionObserver=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){setLogo(e.target.dataset.logo||'white')}})},{threshold:.55});
+document.querySelectorAll('.section').forEach(s=>sectionObserver.observe(s));
+const revealObserver=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){window.setTimeout(()=>e.target.classList.add('is-visible'),120);revealObserver.unobserve(e.target)}})},{threshold:.58,rootMargin:'0px 0px -8% 0px'});
+document.querySelectorAll('.reveal-heading').forEach(h=>revealObserver.observe(h));
+
+
+
+
+const OFFICIAL_WORKS=[{"title": "グラニフ札幌", "year": "2025", "cats": ["専門店"]}, {"title": "ルミアモーレ竹芝", "year": "2025", "cats": ["ホテル結婚式場"]}, {"title": "NOLLEY’S sophi Kintetsu Abeno Harukas", "year": "2025", "cats": ["専門店"]}, {"title": "マクセルアクアパーク品川フレンドリースクエア", "year": "2025", "cats": ["遊興・テーマ型"]}, {"title": "une osaka/COVE DINING", "year": "2025", "cats": ["ホテル結婚式場", "飲食店"]}, {"title": "ちきゅうのにわ 幕張新都心店", "year": "2025", "cats": ["遊興・テーマ型"]}, {"title": "横浜ワールドポーターズ ROOF TOP WORLD", "year": "2025", "cats": ["大型商業施設"]}, {"title": "2025年大阪・関西万博 「飯田グループ×大阪公立大学 共同出展館」", "year": "2025", "cats": ["展示会・ショールーム・博物館"]}, {"title": "東武動物公園 ファミリーコースター てんとう虫", "year": "2025", "cats": ["遊興・テーマ型"]}, {"title": "ホテル京阪 天満橋駅前", "year": "2025", "cats": ["ホテル結婚式場"]}, {"title": "グラニフ台湾台北南港ららぽーと", "year": "2025", "cats": ["専門店"]}, {"title": "桜鶴苑", "year": "2025", "cats": ["ホテル結婚式場"]}, {"title": "熟成肉とんかつロース堂 豊橋曙本店", "year": "2025", "cats": ["飲食店"]}, {"title": "SCビジネスフェア2025-UR都市機構 新都市ライフホールディングスグループブース", "year": "2025", "cats": ["展示会・ショールーム・博物館"]}, {"title": "静岡cosaフードホール", "year": "2025", "cats": ["飲食店"]}, {"title": "花の器ekie", "year": "2024", "cats": ["専門店"]}, {"title": "Blooming Camp", "year": "2024", "cats": ["その他"]}, {"title": "URBAN RESEARCH DOORS Breeze信義", "year": "2024", "cats": ["専門店", "海外実績"]}, {"title": "フジマート Le Van Luong", "year": "2024", "cats": ["海外実績"]}, {"title": "大江戸温泉物語プレミアム 鬼怒川", "year": "2024", "cats": ["ホテル結婚式場"]}, {"title": "横浜ワールドポーターズ", "year": "2024", "cats": ["大型商業施設"]}, {"title": "医療法人徳洲会 TOKUSHUKAI INTERNATIONAL Medical Check-up OSAKA", "year": "2024", "cats": ["その他"]}, {"title": "神戸須磨シーワールド", "year": "2024", "cats": ["遊興・テーマ型", "飲食店"]}, {"title": "KUOE KYOTO", "year": "2024", "cats": ["専門店"]}, {"title": "森松（蘇州）生命科技有限公司 常熟工厂", "year": "2024", "cats": ["海外実績"]}, {"title": "YEBISU BREWERY TOKYO", "year": "2024", "cats": ["展示会・ショールーム・博物館"]}, {"title": "中島屋グランドホテル", "year": "2024", "cats": ["ホテル結婚式場"]}, {"title": "BAUMルミネ新宿店", "year": "2024", "cats": ["専門店"]}, {"title": "焼津グランドホテル", "year": "2024", "cats": ["ホテル結婚式場"]}, {"title": "グラニフ東京", "year": "2023", "cats": ["専門店"]}, {"title": "大垣書店 麻布台ヒルズ店 ギャラリーNEUTRAL azabudai café Slow Page", "year": "2023", "cats": ["専門店"]}, {"title": "Whitestone Gallery Singapore", "year": "2023", "cats": ["展示会・ショールーム・博物館"]}, {"title": "いっぴん西通り・いっぴん東通り", "year": "2023", "cats": ["大型商業施設"]}, {"title": "HOTEL ROTTERDAM HUIS TEN BOSCH", "year": "2023", "cats": ["ホテル結婚式場"]}, {"title": "LEONARD 表参道", "year": "2023", "cats": ["専門店"]}, {"title": "グラニフ ストア&アート心斎橋", "year": "2023", "cats": ["専門店"]}, {"title": "TAOYA那須塩原", "year": "2023", "cats": ["ホテル結婚式場", "飲食店"]}, {"title": "OPEN HOUSE ICE BEACH", "year": "2023", "cats": ["飲食店", "遊興・テーマ型"]}, {"title": "TAOYA西海橋", "year": "2023", "cats": ["飲食店", "ホテル結婚式場"]}, {"title": "Lotus Palace 大名ガーデンシティ店", "year": "2023", "cats": ["飲食店"]}, {"title": "ソシエ 大宮店", "year": "2023", "cats": ["専門店"]}, {"title": "SCビジネスフェア2023 ジークブース", "year": "2023", "cats": ["展示会・ショールーム・博物館"]}, {"title": "博多バスターミナル 1階外部通路グラフィック", "year": "2022", "cats": ["その他"]}, {"title": "nijntje shop & cafe", "year": "2022", "cats": ["専門店", "遊興・テーマ型"]}, {"title": "炉端あん Binh Duong", "year": "2022", "cats": ["飲食店"]}, {"title": "イオンモール土岐", "year": "2022", "cats": ["大型商業施設"]}, {"title": "つば九郎ハウ巣", "year": "2022", "cats": ["遊興・テーマ型"]}, {"title": "LEAF COURT PLUS", "year": "2022", "cats": ["その他"]}, {"title": "ビジネスエアポート新宿三丁目", "year": "2020", "cats": ["その他"]}, {"title": "イオンモール高知 増床活性化", "year": "2020", "cats": ["大型商業施設"]}, {"title": "OSHMAN’S 原宿店", "year": "2020", "cats": ["専門店"]}, {"title": "ホテル雅叙園東京 衣裳室", "year": "2020", "cats": ["専門店"]}, {"title": "Xpark Xcafe by PRONTO", "year": "2020", "cats": ["飲食店", "遊興・テーマ型", "海外実績"]}, {"title": "アーフェリーク白金 大規模リニューアル", "year": "2020", "cats": ["ホテル結婚式場"]}, {"title": "D’sD 広尾", "year": "2020", "cats": ["飲食店"]}, {"title": "STUDIOUS LUCUA OSAKA", "year": "2020", "cats": ["専門店"]}, {"title": "NEWoMan横浜 2416Market,800DEGREES", "year": "2020", "cats": ["専門店", "飲食店"]}, {"title": "LOCAL MOTION 有明ガーデン", "year": "2020", "cats": ["専門店"]}, {"title": "インターコンチネンタルTOKYO BAY 1F LOBBY", "year": "2020", "cats": ["ホテル結婚式場"]}, {"title": "代官山炭火焼肉 猿楽 豊洲ベイサイドクロス", "year": "2020", "cats": ["飲食店"]}, {"title": "ビバモール東松山", "year": "2020", "cats": ["大型商業施設"]}, {"title": "和食えん 台北復興SOGO店", "year": "2020", "cats": ["海外実績"]}, {"title": "ROYAL TWIN HOTEL KYOTO", "year": "2020", "cats": ["ホテル結婚式場"]}, {"title": "SCビジネスフェア2020-UR都市機構 新都市ライフホールディングスグループブース", "year": "2020", "cats": ["展示会・ショールーム・博物館"]}, {"title": "WINE STYLE ぶどうの樹 博多冷泉", "year": "2020", "cats": ["飲食店"]}, {"title": "ソヨカふじみ野リニューアル計画", "year": "2019", "cats": ["大型商業施設"]}, {"title": "repipi armario台灣１号店", "year": "2019", "cats": ["専門店", "海外実績"]}, {"title": "Roger’s Food Market", "year": "2019", "cats": ["飲食店", "大型商業施設", "専門店"]}, {"title": "三井MOP台中港フードコート", "year": "2019", "cats": ["大型商業施設", "海外実績"]}, {"title": "BEAMS台北微風南山店", "year": "2019", "cats": ["専門店", "海外実績"]}, {"title": "BRANCH大津京", "year": "2019", "cats": ["大型商業施設"]}, {"title": "レリアン日本橋三越", "year": "2019", "cats": ["専門店"]}];
+const CACHE_URL='assets/cache/works.json';
+const CACHE_SCHEMA_VERSION=5;
+const CACHE_KEY='zyccWorksCacheV5';
+const LEGACY_CACHE_KEYS=['zyccWorksCacheV4','zyccWorksCacheV3','zyccWorksCacheV2'];
+const MIN_IMAGE_COUNT=60;
+const API_ROOT='https://zycc.jp/wp-json/wp/v2/posts';
+const API_TIMEOUT=8000;
+let works=OFFICIAL_WORKS.map((w,i)=>({...w,id:'static-'+i,sourceId:null,categories:w.cats||[],thumbnail:'',image:'',gallery:[],excerpt:'',content:'',textContent:'',link:'',modified:'',imageState:'pending'}));
+let worksCacheMeta={schemaVersion:CACHE_SCHEMA_VERSION,latestModified:'',generatedAt:'',etag:'',lastModified:''};
+let currentFilter='All', currentView='grid';
+const gridEl=document.getElementById('workGrid'), listEl=document.getElementById('workList'), countEl=document.getElementById('workCount');
+function esc(v){return String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
+function strip(html){const d=document.createElement('div');d.innerHTML=html||'';return (d.textContent||'').replace(/\s+/g,' ').trim();}
+function decodeHtml(v){const d=document.createElement('div');d.innerHTML=String(v||'');return d.textContent||'';}
+function normTitle(t){return strip(decodeHtml(t)).replace(/[\s　「」『』（）()・,，/&'’]/g,'').toLowerCase();}
+function categoryLabel(cats){return (cats||[]).join(' / ').replaceAll('ホテル結婚式場','ホテル').replaceAll('遊興・テーマ型','遊興').replaceAll('大型商業施設','商業施設').replaceAll('展示会・ショールーム・博物館','展示会');}
+function workCats(w){return w.categories||w.cats||[];}
+function matches(w,filter){return filter==='All'||workCats(w).includes(filter);}
+let renderWorks=()=>{};
+function setArchiveView(view){currentView=view;document.querySelector('#archive').classList.toggle('listmode',view==='list');document.querySelector('.gridBtn')?.classList.toggle('active',view!=='list');document.querySelector('.listBtn')?.classList.toggle('active',view==='list');}
+document.querySelectorAll('[data-view]').forEach(btn=>btn.addEventListener('click',()=>setArchiveView(btn.dataset.view)));
+function applyArchiveFilter(filter){currentFilter=filter;document.querySelectorAll('.filters button').forEach(b=>b.classList.toggle('active',b.dataset.filter===filter));renderWorks();}
+document.querySelectorAll('.filters button').forEach(btn=>btn.addEventListener('click',()=>applyArchiveFilter(btn.dataset.filter)));
+const modal=document.getElementById('workModal');
+function factsFromContent(w){const text=w.textContent||strip(w.content);const fields=['クライアント','オープン','所在地','業務内容','カテゴリー'];return fields.map(f=>{const m=text.match(new RegExp(f+'：([^：]+?)(?=クライアント：|オープン：|所在地：|業務内容：|カテゴリー：|$)'));return m?`<div>${f}：<b>${esc(m[1].trim())}</b></div>`:'';}).join('');}
+function descFromContent(w){const text=w.textContent||strip(w.content);let desc=text.replace(/^.*?カテゴリー：[^。]*。?/,'').replace(/クライアント：.*?カテゴリー：[^。]*。?/g,'').trim();if(!desc||desc.length<20)desc=w.excerpt||'ジークが手がけてきた場所の記録です。';return desc.slice(0,520);}
+function buildGallery(w,img){const imgs=(w.gallery&&w.gallery.length?w.gallery:[img]).filter(Boolean);return imgs.slice(0,8).map(src=>`<button type="button" data-src="${esc(src)}"><img src="${esc(src)}" alt="${esc(w.title)}" loading="lazy" decoding="async" onerror="this.closest('button').remove()"></button>`).join('');}
+function openWorkModal(w){if(!w)return;const img=w.image||w.thumbnail||'';const main=modal.querySelector('figure>img');main.loading='lazy';main.decoding='async';main.src=img;main.alt=w.title;main.onerror=function(){this.onerror=null;this.removeAttribute('src');};modal.querySelector('.modalMeta').textContent=[categoryLabel(workCats(w)),w.year].filter(Boolean).join(' / ');modal.querySelector('.modalTitle').textContent=w.title;modal.querySelector('.modalFacts').innerHTML=factsFromContent(w)||`<div>カテゴリー：<b>${esc(categoryLabel(workCats(w)))}</b></div><div>年：<b>${esc(w.year)}</b></div>`;modal.querySelector('.modalCaption').textContent=descFromContent(w);document.getElementById('modalGallery').innerHTML=buildGallery(w,img);document.querySelectorAll('#modalGallery button').forEach(b=>b.addEventListener('click',()=>{main.src=b.dataset.src;}));modal.classList.add('open');modal.setAttribute('aria-hidden','false');document.documentElement.style.overflow='hidden';}
+function closeWorkModal(){modal.classList.remove('open');modal.setAttribute('aria-hidden','true');document.documentElement.style.overflow='';}
+document.querySelector('.modalClose')?.addEventListener('click',closeWorkModal);modal?.addEventListener('click',e=>{if(e.target===modal)closeWorkModal();});document.addEventListener('keydown',e=>{if(e.key==='Escape')closeWorkModal();});
+
+function publishWorksDebug(){
+  window.worksData=works;
+  window.worksImageDebug={
+    first:works[0]||null,
+    before:works[0]||null,
+    after:works[0]?workImage(works[0]):'',
+    imageCounts:imageCount({works})
+  };
+}
+function workImage(w){return w?.thumbnail||w?.image||'';}
+function imageFallbackAttrs(w){return `onerror="this.onerror=null;this.closest('.workItem,.thumb')?.classList.remove('image-pending','official-loaded');this.closest('.workItem,.thumb')?.classList.add('image-missing');"`}
+function imageMarkup(w){const src=workImage(w);return src?`<img src="${esc(src)}" alt="${esc(w.title)}" loading="lazy" decoding="async" ${imageFallbackAttrs(w)}>`:'';}
+function workImageClass(w){if(workImage(w))return 'official-loaded';return w.imageState==='missing'?'image-missing':'image-pending';}
+function bindWorkClicks(){document.querySelectorAll('.workItem').forEach(el=>el.addEventListener('click',()=>openWorkModal(works.find(w=>w.id===el.dataset.id))));}
+renderWorks=function(){
+  const visible=works.filter(w=>matches(w,currentFilter));
+  countEl.textContent=visible.length;
+  publishWorksDebug();
+  gridEl.innerHTML=visible.map(w=>`<button class="card workItem ${workImageClass(w)}" type="button" data-id="${esc(w.id)}">${imageMarkup(w)}<div class="label"><span><b>${esc(w.title)}</b><small>${esc(categoryLabel(workCats(w)))}</small></span><span>${esc(w.year)}</span></div></button>`).join('');
+  listEl.innerHTML=visible.map(w=>`<button class="row workItem" type="button" data-id="${esc(w.id)}"><span>${esc(categoryLabel(workCats(w)))}</span><strong>${esc(w.title)}</strong><span class="muted">${esc(workImage(w)?'Official image':'Image loading')}</span><span class="muted yearCell">${esc(w.year)}</span><div class="thumb ${workImageClass(w)}">${imageMarkup(w)}</div></button>`).join('');
+  bindWorkClicks();
+};
+setArchiveView=function(view){
+  currentView=view;
+  const archive=document.querySelector('#archive');
+  archive.classList.toggle('listmode',view==='list');
+  document.querySelector('.gridBtn')?.classList.toggle('active',view==='grid');
+  document.querySelector('.listBtn')?.classList.toggle('active',view==='list');
+};
+applyArchiveFilter=function(filter){
+  currentFilter=filter;
+  document.querySelectorAll('.filters button').forEach(b=>b.classList.toggle('active',b.dataset.filter===filter));
+  renderWorks();
+};
+function normalizeWork(raw){
+  return {
+    id:String(raw.id||raw.sourceId||normTitle(raw.title)),
+    sourceId:raw.sourceId||raw.id||null,
+    title:raw.title||'',
+    year:raw.year||String(raw.date||raw.modified||'').slice(0,4),
+    categories:raw.categories||raw.cats||['その他'],
+    excerpt:raw.excerpt||'',
+    content:raw.content||'',
+    textContent:raw.textContent||strip(raw.content||''),
+    link:raw.link||'',
+    date:raw.date||'',
+    modified:raw.modified||'',
+    thumbnail:raw.thumbnail||raw.img||'',
+    image:raw.image||raw.img||raw.thumbnail||'',
+    gallery:raw.gallery||raw.images||[],
+    meta:raw.meta||{},
+    imageState:(raw.thumbnail||raw.image||raw.img)?'official':'missing'
+  };
+}
+function normalizeCache(cache){
+  const normalized={...cache,works:Array.isArray(cache?.works)?cache.works.map(normalizeWork):[]};
+  normalized.count=normalized.works.length;
+  return normalized;
+}
+function imageCount(cache){
+  const list=cache?.works||[];
+  return {
+    thumbnail:list.filter(w=>w.thumbnail).length,
+    image:list.filter(w=>w.image).length,
+    gallery:list.filter(w=>w.gallery&&w.gallery.length).length
+  };
+}
+function isUsableWorksCache(cache){
+  if(!cache||cache.schemaVersion!==CACHE_SCHEMA_VERSION||!Array.isArray(cache.works)||!cache.works.length)return false;
+  const counts=imageCount(cache);
+  return counts.thumbnail>=MIN_IMAGE_COUNT&&counts.image>=MIN_IMAGE_COUNT&&counts.gallery>=MIN_IMAGE_COUNT;
+}
+function purgeWorksCache(reason='manual'){
+  try{
+    localStorage.removeItem(CACHE_KEY);
+    LEGACY_CACHE_KEYS.forEach(key=>localStorage.removeItem(key));
+    console.info('Works cache reset:',reason);
+  }catch(e){}
+}
+window.resetWorksCache=()=>{purgeWorksCache('dev reset');location.reload();};
+function applyWorksCache(cache,{fade=false}={}){
+  const normalized=normalizeCache(cache);
+  if(!isUsableWorksCache(normalized)){
+    console.info('Rejected works cache:',{schemaVersion:normalized?.schemaVersion,images:imageCount(normalized)});
+    return false;
+  }
+  worksCacheMeta={schemaVersion:normalized.schemaVersion||CACHE_SCHEMA_VERSION,latestModified:normalized.latestModified||'',generatedAt:normalized.generatedAt||'',etag:normalized.etag||'',lastModified:normalized.lastModified||''};
+  works=normalized.works;
+  if(fade)document.querySelector('#archive')?.classList.add('is-refreshing');
+  renderWorks();
+  setArchiveView(currentView);
+  if(fade)window.setTimeout(()=>document.querySelector('#archive')?.classList.remove('is-refreshing'),280);
+  return true;
+}
+function readLocalStorageCache(){
+  try{
+    const stored=normalizeCache(JSON.parse(localStorage.getItem(CACHE_KEY)||'null'));
+    if(isUsableWorksCache(stored))return stored;
+    purgeWorksCache('stale or incomplete localStorage');
+    return null;
+  }catch(e){
+    purgeWorksCache('broken localStorage json');
+    return null;
+  }
+}
+function writeLocalStorageCache(cache){
+  try{localStorage.setItem(CACHE_KEY,JSON.stringify(cache));}catch(e){}
+}
+async function fetchJson(url,{timeout=API_TIMEOUT,headers={},cache='default'}={}){
+  const controller=new AbortController();
+  const timer=window.setTimeout(()=>controller.abort(),timeout);
+  try{
+    const res=await fetch(url,{cache,headers,signal:controller.signal});
+    if(!res.ok)throw new Error(`HTTP ${res.status}`);
+    return {data:await res.json(),etag:res.headers.get('etag')||'',lastModified:res.headers.get('last-modified')||''};
+  }finally{
+    window.clearTimeout(timer);
+  }
+}
+function pickSized(media,preferred=['medium_large','medium','large','full']){
+  const sizes=media?.media_details?.sizes||{};
+  for(const key of preferred){if(sizes[key]?.source_url)return sizes[key].source_url;}
+  return media?.source_url||'';
+}
+function imagesFromContent(html){
+  const d=document.createElement('div');d.innerHTML=html||'';
+  return [...new Set(Array.from(d.querySelectorAll('img')).map(img=>img.getAttribute('src')||img.dataset.src).filter(Boolean))].slice(0,8);
+}
+function catsFromPost(post){return (post?._embedded?.['wp:term']||[]).flat().map(t=>t.name).filter(n=>n&&n!=='未分類');}
+function postToWork(post,existing={}){
+  const media=post?._embedded?.['wp:featuredmedia']?.[0];
+  const contentImages=imagesFromContent(post?.content?.rendered);
+  const image=pickSized(media,['large','full'])||contentImages[0]||existing.image||'';
+  const thumbnail=pickSized(media,['medium_large','medium','large'])||contentImages[0]||existing.thumbnail||image;
+  const gallery=[...new Set([image,...contentImages,...(existing.gallery||[])].filter(Boolean))].slice(0,8);
+  const cats=catsFromPost(post);
+  const contentHtml=post.content?.rendered||existing.content||'';
+  return normalizeWork({...existing,id:String(post.id),sourceId:post.id,title:strip(post.title?.rendered)||existing.title,year:(post.date||'').slice(0,4)||existing.year,categories:cats.length?cats:existing.categories,excerpt:strip(post.excerpt?.rendered)||existing.excerpt,content:contentHtml,textContent:strip(contentHtml),link:post.link||existing.link,date:post.date||existing.date,modified:post.modified||existing.modified,thumbnail,image,gallery,meta:{...(existing.meta||{}),source:'zycc.jp REST API'}});
+}
+async function loadStaticCache(){
+  if(window.ZYCC_WORKS_CACHE)return normalizeCache(window.ZYCC_WORKS_CACHE);
+  const cache=await fetchJson(CACHE_URL,{timeout:API_TIMEOUT});
+  return normalizeCache(cache.data);
+}
+async function checkOfficialLatest(){
+  const fields='id,modified,date,title';
+  const latestUrl=`${API_ROOT}?per_page=1&orderby=modified&order=desc&_fields=${encodeURIComponent(fields)}`;
+  const {data,etag,lastModified}=await fetchJson(latestUrl,{timeout:API_TIMEOUT,cache:'no-store'});
+  const latest=data?.[0]?.modified||'';
+  return {latestModified:latest,etag,lastModified};
+}
+async function fetchChangedWorks(since){
+  if(!since)return [];
+  const fields='id,date,modified,link,title,content,excerpt,_embedded';
+  const url=`${API_ROOT}?_embed=1&per_page=20&orderby=modified&order=asc&modified_after=${encodeURIComponent(since)}&_fields=${encodeURIComponent(fields)}`;
+  const {data}=await fetchJson(url,{timeout:API_TIMEOUT,cache:'no-store'});
+  return Array.isArray(data)?data:[];
+}
+async function refreshOfficialInBackground(){
+  try{
+    const latest=await checkOfficialLatest();
+    if(!latest.latestModified||latest.latestModified<=worksCacheMeta.latestModified)return;
+    const changed=await fetchChangedWorks(worksCacheMeta.latestModified);
+    if(!changed.length)return;
+    const byId=new Map(works.map(w=>[String(w.sourceId||w.id),w]));
+    const byTitle=new Map(works.map(w=>[normTitle(w.title),w]));
+    let changedAny=false;
+    changed.forEach(post=>{
+      const existing=byId.get(String(post.id))||byTitle.get(normTitle(post.title?.rendered));
+      if(!existing)return;
+      const updated=postToWork(post,existing);
+      works=works.map(w=>(w.id===existing.id?updated:w));
+      changedAny=true;
+    });
+    if(!changedAny)return;
+    const nextCache={schemaVersion:CACHE_SCHEMA_VERSION,generatedAt:new Date().toISOString(),source:API_ROOT,latestModified:latest.latestModified,etag:latest.etag,lastModified:latest.lastModified,count:works.length,works};
+    writeLocalStorageCache(nextCache);
+    applyWorksCache(nextCache,{fade:true});
+  }catch(e){
+    console.info('Works background sync skipped:',e?.message||e);
+  }
+}
+async function bootWorks(){
+  renderWorks();
+  setArchiveView(currentView);
+  if(new URLSearchParams(location.search).has('resetWorksCache')){
+    purgeWorksCache('query reset');
+  }
+  const stored=readLocalStorageCache();
+  if(stored?.works?.length){
+    if(!applyWorksCache(stored)){
+      purgeWorksCache('stored cache rejected at boot');
+    }else{
+      refreshOfficialInBackground();
+      return;
+    }
+  }
+  try{
+    const staticCache=await loadStaticCache();
+    if(!applyWorksCache(staticCache)){
+      throw new Error('Static works cache failed imageCount validation');
+    }
+    writeLocalStorageCache(staticCache);
+    refreshOfficialInBackground();
+    return;
+  }catch(e){
+    works=works.map(w=>({...w,imageState:'missing'}));
+    renderWorks();
+    console.info('Static works cache unavailable:',e?.message||e);
+  }
+  refreshOfficialInBackground();
+}
+bootWorks();
+
+
+</script>
+</body></html>
