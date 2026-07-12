@@ -2,7 +2,7 @@
 
 このファイルはZYCC LPリポジトリの「今」を表す。詳細な経緯・設計判断はObsidian Vault側 `01_Projects/AI-DOS/ProjectState.md` 7章（要約）および `DecisionLog.md`（判断理由）を参照。**タスク終了時に必ず更新すること。**
 
-最終更新: 2026-07-12
+最終更新: 2026-07-13
 更新者: Claude Code
 
 ## 進捗
@@ -11,21 +11,19 @@
 |---|---|
 | Basic-Auth認証情報をNetlify環境変数化（`_headers` / `netlify/edge-functions/basic-auth.js`） | main反映済み（`ae5b726`）。本番HTTP 401で正常動作確認済み |
 | works-cache生成スクリプトのスキーマバージョン不整合を修正（`update-works-cache.mjs` の `SCHEMA_VERSION` 4→5） | main反映済み（`066fe26`） |
-| 画像8点（hero/studio1/studio2/process1-3/member1-2）にalt属性を追加（`index.html`） | ブランチ`ai/claude-code/fix/alt-text-and-status-md`にcommit・push済み（`ae2da10`）。**mainへのmerge未実施・承認待ち** |
-| 本ファイル（STATUS.md）新設 | 同ブランチにcommit・push済み（`f798cf7`）。**mainへのmerge未実施・承認待ち** |
+| 画像8点（hero/studio1/studio2/process1-3/member1-2）にalt属性を追加（`index.html`） | **完了**。`ai/claude-code/fix/alt-text-and-status-md`ブランチをmainへmerge済み（`95551e6`） |
+| 本ファイル（STATUS.md）新設 | **完了**。同上のmergeでmain反映済み（`95551e6`） |
+| Worksキャッシュの手動再生成（`update-works-cache.mjs`実行→`cache-work-thumbnails.mjs`実行の2段階） | **完了**。main反映済み（`938a8ee`）。72件全てマッチ・サムネイル72件全て再キャッシュ確認済み |
+| `verify/netlify-deploy-check` ブランチの後始末 | **完了**。ローカル・リモートとも削除済み |
+| Netlifyダッシュボードでの自動Deploy最終確認 | **完了**。main@`95551e6`のパブリッシュを人間が確認。`DeployVerification.md`の判定はNO-GO→GOへ |
 
 ## 次タスク
 
-1. `ai/claude-code/fix/alt-text-and-status-md` ブランチのmain merge承認
-2. Worksキャッシュの手動再生成（`assets/cache/works.json` が2026-07-09から更新なし）
-3. Netlifyダッシュボードでの自動Deploy最終確認（`DeployVerification.md` のNO-GO判定を解消）
-4. `verify/netlify-deploy-check` ブランチの後始末（merge or 削除）
-5. Desktop上の重複フォルダ（`zycc_creative_archive_board_v1_1 2`〜`11`、`zycc_recruit_site`）の整理方針決定
+1. Desktop上の重複フォルダ（`zycc_creative_archive_board_v1_1 2`〜`11`、`zycc_recruit_site`）の整理方針決定
 
 ## 承認待ち（人間の判断が必要）
 
 | 項目 | 内容 |
 |---|---|
-| `ai/claude-code/fix/alt-text-and-status-md` のmain merge可否 | alt属性追加＋STATUS.md新設、いずれも本番挙動に影響なし |
 | Basic-Auth解除（一般公開）のタイミング | 解除するまでSEO/OGP等は判断保留のまま |
 | Worksキャッシュ自動更新の導入要否 | GitHub Actions等での定期実行を検討するか |
