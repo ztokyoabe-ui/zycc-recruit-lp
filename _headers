@@ -1,2 +1,4 @@
-/*
-  Basic-Auth: zycc:ZyccRecruit2026
+# Basic-Auth is enforced by netlify/edge-functions/basic-auth.js using
+# Netlify environment variables (BASIC_AUTH_USER / BASIC_AUTH_PASSWORD).
+# Do not add a "Basic-Auth:" directive here — this file is a plain static
+# asset in the repo/build output and cannot hold secrets safely.
