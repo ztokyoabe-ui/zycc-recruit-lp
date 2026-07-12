@@ -9,7 +9,7 @@ const jsOutputPath = resolve(root, 'assets/cache/works-cache.js');
 const API_ROOT = 'https://zycc.jp/wp-json/wp/v2/posts';
 const PER_PAGE = 50;
 const TIMEOUT_MS = 15000;
-const SCHEMA_VERSION = 4;
+const SCHEMA_VERSION = 5;
 
 const html = await readFile(indexPath, 'utf8');
 const staticWorks = JSON.parse(html.match(/const OFFICIAL_WORKS=(\[[\s\S]*?\]);/)?.[1] || '[]');
