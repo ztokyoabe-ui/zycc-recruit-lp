@@ -2,8 +2,8 @@
 
 このファイルはZYCC LPリポジトリの「今」を表す。詳細な経緯・設計判断はObsidian Vault側 `01_Projects/AI-DOS/ProjectState.md` 7章（要約）および `DecisionLog.md`（判断理由）を参照。**タスク終了時に必ず更新すること。**
 
-最終更新: 2026-07-13
-更新者: Claude Code
+最終更新: 2026-07-29
+更新者: Codex
 
 ## 進捗
 
@@ -16,10 +16,12 @@
 | Worksキャッシュの手動再生成（`update-works-cache.mjs`実行→`cache-work-thumbnails.mjs`実行の2段階） | **完了**。main反映済み（`938a8ee`）。72件全てマッチ・サムネイル72件全て再キャッシュ確認済み |
 | `verify/netlify-deploy-check` ブランチの後始末 | **完了**。ローカル・リモートとも削除済み |
 | Netlifyダッシュボードでの自動Deploy最終確認 | **完了**。main@`95551e6`のパブリッシュを人間が確認。`DeployVerification.md`の判定はNO-GO→GOへ |
+| Heroセクションの採用LPブラッシュアップ | **完了**。コピー、導線、CTA、実績文脈、余白、タイポグラフィ、初期表示アニメーションをv1.11として更新 |
 
 ## 次タスク
 
-1. Desktop上の重複フォルダ（`zycc_creative_archive_board_v1_1 2`〜`11`、`zycc_recruit_site`）の整理方針決定
+1. Studio / Archive / Process の順に、セクション単位で採用文脈と読後導線を磨く
+2. Desktop上の重複フォルダ（`zycc_creative_archive_board_v1_1 2`〜`11`、`zycc_recruit_site`）の整理方針決定
 
 ## 承認待ち（人間の判断が必要）
 
