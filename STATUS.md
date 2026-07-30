@@ -33,3 +33,4 @@
 |---|---|
 | Basic-Auth解除（一般公開）のタイミング | 解除するまでSEO/OGP等は判断保留のまま |
 | Worksキャッシュ自動更新の導入要否 | GitHub Actions等での定期実行を検討するか |
+| Netlifyデプロイ停止の解消 | 2026-07-30のmain@`44cd0ba`自動デプロイは `Skipped due to account credit usage exceeded`。CLI直接デプロイもForbiddenのため、Netlify側の利用枠・権限確認が必要 |
